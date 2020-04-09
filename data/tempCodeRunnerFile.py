@@ -1,1 +1,0 @@
-deaths['4/7/20']['NACIONAL'] = new.sum(
