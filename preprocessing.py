@@ -1,17 +1,19 @@
 import numpy as np
 import pandas as pd 
 import geopandas as gpd
+import tabula
 import matplotlib.pyplot as plt 
 plt.style.use('seaborn')
 
-yestersay = '4/8/20'
-today = '4/9/20'
+yestersay = '4/9/20'
+today = '4/10/20'
 
-confirmedraw = pd.read_csv('data/covidmxraw.csv', skiprows=3, index_col=0)
-confirmedraw = confirmedraw.dropna()
-confirmedraw = confirmedraw[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3']]
-confirmedraw = confirmedraw.rename(columns={'Unnamed: 1':'Estado', 'Unnamed: 2':'Sexo', 'Unnamed: 3':'Edad'})
-confirmedraw['Estado'] = confirmedraw['Estado'].apply(lambda name: name[:-1])
+df = tabula.read_pdf('data/mexico.pdf', pages='all',  output_format='dataframe', multiple_tables=False)
+df[0].to_csv('data/covidmxraw.csv')
+
+confirmedraw = pd.read_csv('data/covidmxraw.csv', index_col=0)
+confirmedraw = confirmedraw.drop(['N° Caso','Identificación de\rCOVID-19 por RT-PCR\ren tiempo real'], axis=1)
+confirmedraw = confirmedraw.rename(columns={'Fecha de Inicio\rde síntomas':'Fecha de Inicio de síntomas'})
 confirmedraw.to_csv('data/confirmedraw.csv')
 
 confirmed = pd.read_csv('data/time_series_confirmed_MX.csv', index_col=0)
