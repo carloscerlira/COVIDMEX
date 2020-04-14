@@ -5,14 +5,14 @@ import tabula
 import matplotlib.pyplot as plt 
 plt.style.use('seaborn')
 
-yestersay = '4/9/20'
-today = '4/10/20'
+yestersay = '4/12/20'
+today = '4/13/20'
 
 df = tabula.read_pdf('data/mexico.pdf', pages='all',  output_format='dataframe', multiple_tables=False)
 df[0].to_csv('data/covidmxraw.csv')
 
 confirmedraw = pd.read_csv('data/covidmxraw.csv', index_col=0)
-confirmedraw = confirmedraw.drop(['N° Caso','Identificación de\rCOVID-19 por RT-PCR\ren tiempo real'], axis=1)
+confirmedraw = confirmedraw.drop(['N° Caso','Identificación de COVID-\r19 por RT-PCR en tiempo\rreal'], axis=1)
 confirmedraw = confirmedraw.rename(columns={'Fecha de Inicio\rde síntomas':'Fecha de Inicio de síntomas'})
 confirmedraw.to_csv('data/confirmedraw.csv')
 
