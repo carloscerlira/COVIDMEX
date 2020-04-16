@@ -5,8 +5,8 @@ import tabula
 import matplotlib.pyplot as plt 
 plt.style.use('seaborn')
 
-yestersay = '4/12/20'
-today = '4/13/20'
+yestersay = '4/14/20'
+today = '4/15/20'
 
 df = tabula.read_pdf('data/mexico.pdf', pages='all',  output_format='dataframe', multiple_tables=False)
 df[0].to_csv('data/covidmxraw.csv')
